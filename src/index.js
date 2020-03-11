@@ -73,6 +73,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
+  console.log('new socket');
   const sock = new Socket(
     props.socketUrl,
     props.customData,
