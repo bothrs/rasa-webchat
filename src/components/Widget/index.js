@@ -117,16 +117,19 @@ class Widget extends Component {
 
   sendMessage(payload, text = '', when = 'always') {
     const { dispatch, initialized } = this.props;
-    console.log('initialized', initialized);
+    const emit = () => {
+      if (when === 'always') {
+        dispatch(emitUserMessage(payload));
+        if (text !== '') dispatch(addUserMessage(text));
+      } else if (when === 'init') {
+        dispatch(emitMessageIfFirst(payload, text));
+      }
+    };
     if (!initialized) {
-      this.initializeWidget(false);
+      this.initializeWidget(false, emit);
       dispatch(initialize());
-    }
-    if (when === 'always') {
-      dispatch(emitUserMessage(payload));
-      if (text !== '') dispatch(addUserMessage(text));
-    } else if (when === 'init') {
-      dispatch(emitMessageIfFirst(payload, text));
+    } else {
+      emit();
     }
   }
 
@@ -292,7 +295,7 @@ class Widget extends Component {
     }
   }
 
-  initializeWidget(sendInitPayload = true) {
+  initializeWidget(sendInitPayload = true, callback) {
     const {
       storage,
       socket,
@@ -332,6 +335,11 @@ class Widget extends Component {
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
         // Store the initial state to both the redux store and the storage, set connected to true
         dispatch(connectServer());
+
+        // If there's stuff to do once everything is properly connected
+        // Do it now !
+        console.log('calling callback');
+        if (callback) callback();
         /*
         Check if the session_id is consistent with the server
         If the localId is null or different from the remote_id,
