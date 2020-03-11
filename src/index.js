@@ -63,11 +63,13 @@ const ConnectedWidget = forwardRef((props, ref) => {
         this.protocolOptions
       );
       this.onEvents.forEach((event) => {
+        console.log('event events', event);
         this.socket.on(event.event, event.callback);
       });
 
       this.onEvents = [];
       Object.keys(this.onSocketEvent).forEach((event) => {
+        console.log('props event', event);
         this.socket.on(event, this.onSocketEvent[event]);
       });
     }
