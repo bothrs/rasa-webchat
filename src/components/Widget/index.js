@@ -117,6 +117,7 @@ class Widget extends Component {
 
   sendMessage(payload, text = '', when = 'always') {
     const { dispatch, initialized } = this.props;
+    console.log('initialized', initialized);
     if (!initialized) {
       this.initializeWidget(false);
       dispatch(initialize());
