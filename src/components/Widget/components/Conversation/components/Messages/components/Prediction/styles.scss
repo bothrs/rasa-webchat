@@ -1,0 +1,47 @@
+@import 'variables.scss';
+
+.prediction-container {
+  height: 2em;
+
+  button {
+    padding: 5px 10px;
+    border-color: $blue-2;
+    border-radius: 8px;
+    margin: 0 8px 8px;
+    cursor: pointer;
+    color: $blue-2;
+    font-size: 1em;
+  }
+}
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 100ms ease-in;
+}
+
+.item-enter {
+  opacity: 0.01;
+}
+
+.item-enter.item-enter-active {
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+
+.item-leave {
+  opacity: 1;
+}
+
+.item-leave.item-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
