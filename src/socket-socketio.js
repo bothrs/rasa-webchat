@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 
 export default function (socketUrl, customData, path) {
+  console.log(socketUrl);
   const options = path ? { path } : {};
   const socket = io(socketUrl, options);
   socket.on('connect', () => {
